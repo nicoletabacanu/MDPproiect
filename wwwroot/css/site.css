@@ -16,3 +16,10 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+td a[disabled] {
+    color: #999;
+    text-decoration: none;
+    cursor: not-allowed;
+    pointer-events: none;
+}

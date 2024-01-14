@@ -13,6 +13,7 @@ namespace proiect.Models
         public int DoctorId { get; set; }
         public Doctor? Doctor { get; set; }
 
+        [Display(Name = "Data Programarii")]
         [DataType(DataType.DateTime)]
         public DateTime? DataProgramarii { get; set; }
     }

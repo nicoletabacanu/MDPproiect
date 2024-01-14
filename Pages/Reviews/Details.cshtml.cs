@@ -28,7 +28,7 @@ namespace proiect.Pages.Reviews
                 return NotFound();
             }
 
-            var review = await _context.Review.FirstOrDefaultAsync(m => m.Id == id);
+            var review = await _context.Review.Include("Pacient").Include("Doctor").FirstOrDefaultAsync(m => m.Id == id);
             if (review == null)
             {
                 return NotFound();

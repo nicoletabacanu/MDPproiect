@@ -36,8 +36,23 @@ namespace proiect.Pages.Programari
                 return NotFound();
             }
             Programare = programare;
-           ViewData["DoctorId"] = new SelectList(_context.Doctor, "Id", "Id");
-           ViewData["PacientId"] = new SelectList(_context.Pacient, "Id", "Id");
+
+            ViewData["DoctorId"] = new SelectList(_context.Doctor, "Id", "FullName");
+
+            if (User.IsInRole("Admin"))
+            {
+                ViewData["PacientId"] = new SelectList(_context.Pacient, "Id", "FullName");
+            }
+            else
+            {
+                if (User.IsInRole("User"))
+                {
+                    var Email = User.Identity.Name;
+                    var Pacients = _context.Pacient.Where(p => p.Email == Email);
+
+                    ViewData["PacientId"] = new SelectList(Pacients, "Id", "FullName");
+                }
+            }
             return Page();
         }
 

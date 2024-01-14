@@ -29,7 +29,7 @@ namespace proiect.Pages.Programari
                 return NotFound();
             }
 
-            var programare = await _context.Programare.FirstOrDefaultAsync(m => m.Id == id);
+            var programare = await _context.Programare.Include("Pacient").Include("Doctor").FirstOrDefaultAsync(m => m.Id == id);
 
             if (programare == null)
             {

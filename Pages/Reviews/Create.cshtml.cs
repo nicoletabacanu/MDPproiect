@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using proiect.Models;
 
 namespace proiect.Pages.Reviews
 {
+    [Authorize(Roles = "User")]
     public class CreateModel : PageModel
     {
         private readonly proiect.Data.proiectContext _context;
@@ -21,8 +23,13 @@ namespace proiect.Pages.Reviews
 
         public IActionResult OnGet()
         {
-        ViewData["DoctorId"] = new SelectList(_context.Doctor, "Id", "Id");
-        ViewData["PacientId"] = new SelectList(_context.Pacient, "Id", "Id");
+            ViewData["DoctorId"] = new SelectList(_context.Doctor, "Id", "FullName");
+
+            var Email = User.Identity.Name;
+            var Pacients = _context.Pacient.Where(p => p.Email == Email);
+
+            ViewData["PacientId"] = new SelectList(Pacients, "Id", "FullName");
+                
             return Page();
         }
 

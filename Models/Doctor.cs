@@ -16,8 +16,18 @@ namespace proiect.Models
         public string? Prenume { get; set; }
 
         [RegularExpression(@"^\(?([0-9]{4})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$", ErrorMessage = "Telefonul trebuie sa fie de forma '0722-123-123' sau'0722.123.123' sau '0722 123 123'")]
-
+        [Display(Name = "Numar Telefon")]
         public string? NumarTelefon { get; set; }
+
         public string? Departament { get; set; }
+
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get
+            {
+                return Nume + " " + Prenume;
+            }
+        }
     }
 }

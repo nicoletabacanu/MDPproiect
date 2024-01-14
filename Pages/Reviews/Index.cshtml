@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Reviews</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -32,10 +32,10 @@
 @foreach (var item in Model.Review) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Pacient.Id)
+                @Html.DisplayFor(modelItem => item.Pacient.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Doctor.Id)
+                @Html.DisplayFor(modelItem => item.Doctor.FullName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Text)
@@ -43,11 +43,24 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+
+
+            @if (Model.isReviewByUser(item))
+                {
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id" disabled>Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id" disabled>Delete</a>
+                    </td>
+                }
         </tr>
 }
     </tbody>

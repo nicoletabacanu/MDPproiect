@@ -26,6 +26,15 @@ namespace proiect.Models
 
         [DataType(DataType.Date)]
         public DateTime? DataNasterii { get; set; }
-        
+
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get
+            {
+                return Nume + " " + Prenume;
+            }
+        }
+
     }
 }

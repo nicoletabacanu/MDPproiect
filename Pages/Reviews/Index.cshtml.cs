@@ -30,5 +30,20 @@ namespace proiect.Pages.Reviews
                 .Include(r => r.Pacient).ToListAsync();
             }
         }
+
+        public bool isReviewByUser(Review review)
+        {
+            var Email = User.Identity.Name;
+            Pacient Pacient = _context.Pacient.FirstOrDefault(p => p.Email == Email);
+
+            if (Pacient == null)
+            {
+                return false;
+            }
+
+            return review.PacientId == Pacient.Id;
+
+
+        }
     }
 }
